@@ -25,3 +25,51 @@ header {
         margin-top: 2.5vh;
     }
 }
+
+main {
+    margin-top: 10vh;
+    width: 90%;
+    height: 55vh;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: solid 2px $line-color;
+    box-sizing: border-box;
+
+    .group {
+        width: 10%;
+        height: 100%;
+        float: left;
+        margin: 0;
+        border-right: solid 1px rgba($color: $line-color, $alpha: 0.2);
+        box-sizing: border-box;
+        transition: 0.3s;
+
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba($color: $white-text-color, $alpha: 0.1);
+            transition: 0.3s;
+        }
+    }
+
+    @for $i from 1 through length($group-colors) {
+        #group-#{$i} {
+            border-top: solid 10px nth($group-colors, $i);
+            border-bottom: solid 10px nth($group-colors, $i);
+        }
+    }       
+
+    .top-group, .bottom-group {
+        height: 50%;
+        width: 100%;
+        display: table;
+    }
+
+    .group-number {
+        text-align: center;
+        vertical-align: middle;
+        display: table-cell;
+        font-size: 24px;
+        color: rgba($color: $white-text-color, $alpha: 0.25)
+    }
+}
