@@ -52,9 +52,26 @@ $(function() {
         totalPopulation += group.number;
     });
 
+    var rollingTotal = 0;
+
     for (var i = 1; i < 10; i++) {
+        rollingTotal += priorityGroups[i-1].number;
         var percentage = (priorityGroups[i-1].number / totalPopulation) * 100;
-        $('#group-'+i).width(percentage + '%');
+        var group = $('#group-'+i);
+        group.width(percentage + '%');
+        var left = group.position().left + group.width();
+        var label = $('<div class="label">' + numberToMillions(rollingTotal) + '</div>');
+        
+        $('main').append(label);
+        left -= (label.width() / 2);
+        label.css({top: '-25px'}).css({left: left});
+
+        var left = group.position().left + group.width();
+        var label = $('<div class="label">' + numberToMillions(rollingTotal) + '</div>');
+        
+        $('main').append(label);
+        left -= (label.width() / 2);
+        label.css({top: $('main').height() + 14}).css({left: left});
     }
 
     $.get('js/vaccinated.json', '', function(response) {
@@ -75,4 +92,8 @@ $(function() {
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function numberToMillions(x) {
+    return (Math.round((x / 1000000) * 10) / 10) + 'm';
 }

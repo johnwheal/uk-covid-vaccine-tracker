@@ -5,6 +5,9 @@ body {
     background-color: $background-color;
     color: $white-text-color;
     font-family: $main-font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 header {
@@ -34,9 +37,9 @@ main {
     margin-right: auto;
     border-left: solid 2px $line-color;
     box-sizing: border-box;
+    position: relative;
 
     .group {
-        width: 10%;
         height: 100%;
         float: left;
         margin: 0;
@@ -129,5 +132,11 @@ main {
         background-color: $second-dose-color;
         width: 20%;
         margin-top: 29.5vh;
+    }
+
+    .label {
+        font-weight: bold;
+        color: $white-text-color;
+        position: absolute;
     }
 }
