@@ -132,6 +132,13 @@ $(window).resize(function() {
 });
 
 /**
+ * Called when the orientation changes
+ */
+$(window).bind('orientationchange', function(event) {
+    location.reload();
+});
+
+/**
  * Returns a number with thousands commas
  * @param {*} x 
  */
