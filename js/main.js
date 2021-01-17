@@ -47,6 +47,11 @@ var priorityGroups = [
 ];
 
 $(function() {
+    for (var i = 1; i < 10; i++) {
+        $('main').append('<div class="group" id="group-' + i + '"><div class="group-wrapper"><div class="top-group"><div class="group-number">' + i + '</div></div><div class="bottom-group"><div class="group-number">' + i + '</div></div></div></div>');
+    }
+
+
     var totalPopulation = 0;
     priorityGroups.forEach(function(group) {
         totalPopulation += group.number;
@@ -81,11 +86,11 @@ $(function() {
         var dose1Percentage = (dose1 / totalPopulation) * 100;
         var dose2Percentage = (dose2 / totalPopulation) * 100;
 
-        $('.first-dose-line').width(dose1Percentage + '%');
-        $('.second-dose-line').width(dose2Percentage + '%');
-
         $('.first-dose-line .num-doses').text(numberWithCommas(dose1));
         $('.second-dose-line .num-doses').text(numberWithCommas(dose2));
+
+        $('.first-dose-line').width(dose1Percentage + '%');
+        $('.second-dose-line').width(dose2Percentage + '%');
     });
 
 });
