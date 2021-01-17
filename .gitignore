@@ -2,3 +2,5 @@
 /node_modules
 .DS_Store
 /js/vaccinated.json
+/dist
+/css/style.css

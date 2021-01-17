@@ -10,6 +10,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var copy = require('gulp-copy');
 var rename = require('gulp-rename');
+var clean = require('gulp-clean');
+var replace = require('gulp-replace');
 
 var stylesheets = [
     '**/*.scss'
@@ -39,6 +41,20 @@ gulp.task('serve', function() {
     // watch files and build/reload where needed
     gulp.watch(['**/*.scss'], ['sass']);
     gulp.watch('**/*.html').on('change', browserSync.reload);
+});
+
+var filesToMove = [
+    './css/**/*.*',
+    './js/**/*.*',
+    './img/**/*.*'
+];
+
+gulp.task('build-prod', ['sass'], function() {
+    gulp.src('dist', {read: false}).pipe(clean());
+
+    gulp.src(filesToMove, { base: './' }).pipe(gulp.dest('dist'));
+
+    gulp.src(['index.html']).pipe(replace('{TIMESTAMP}', Date.now())).pipe(gulp.dest('dist/'));
 });
 
 // when running `gulp build` for a static build

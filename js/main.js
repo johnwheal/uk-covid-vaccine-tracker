@@ -85,7 +85,7 @@ $(function() {
     addDescription();
 
     //Get the vaccinated json
-    $.get('js/vaccinated.json', '', function(response) {
+    $.get('js/vaccinated.json?v='+Date.now(), '', function(response) {
         //Get the latest cumulative dses
         var dose1 = response.data[0].cumPeopleVaccinatedFirstDoseByPublishDate;
         var dose2 = response.data[0].cumPeopleVaccinatedSecondDoseByPublishDate;
