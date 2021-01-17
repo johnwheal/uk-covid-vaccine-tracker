@@ -1,8 +1,9 @@
 footer {
-    margin-top: 15vh;
-    padding: 2.5vh 1vw;
+    margin-top: 12vh;
+    padding: 0 1vw;
+    margin-bottom: 1vh;
     font-size: 14px;
-    position: relative;
+    background-color: red;
 
     a {
         color: inherit;
@@ -20,12 +21,16 @@ footer {
     .left-footer {
         display: inline-block;
         vertical-align: bottom;
+        line-height: 1.5;
+        position: absolute;
+        bottom: 1vh;
     }
 
     .right-footer {
-        float: right;
+        display: block;
         bottom: 0px;
         right: 1vw;
         position: absolute;
+        height: 50px;
     }
 }
