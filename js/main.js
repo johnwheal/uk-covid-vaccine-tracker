@@ -101,6 +101,9 @@ $(function() {
         });
     });
 
+    /**
+     * Called when hover over priority group
+     */
     $('.group-wrapper').mouseenter(function() {
         var id = this.id.replace('group-', '');
         var descriptionText = priorityGroups[id-1].description;
@@ -108,16 +111,25 @@ $(function() {
         $('.description').fadeIn();
     });
     
+    /**
+     * Called when leave priority group
+     */
     $('main').mouseleave(function() {
         $('.description').fadeOut();
     });
 
+    /**
+     * Called when read more is clicked
+     */
     $('#read-more').click(function(event) {
         $('.overlay').fadeIn();
         $('.overlay-contents').fadeIn();
         event.preventDefault();
     }); 
 
+    /**
+     * Called to dismiss read more overlay
+     */
     $('.overlay').click(function() {
         $('.overlay').fadeOut();
         $('.overlay-contents').fadeOut();
