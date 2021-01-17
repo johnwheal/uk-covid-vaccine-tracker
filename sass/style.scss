@@ -30,9 +30,9 @@ header {
 }
 
 main {
-    margin-top: 10vh;
+    margin-top: 15vh;
     width: 90%;
-    height: 55vh;
+    height: 50vh;
     margin-left: auto;
     margin-right: auto;
     border-left: solid 2px $line-color;
@@ -45,6 +45,7 @@ main {
         margin: 0;
         box-sizing: border-box;
         transition: 0.3s;
+        position: relative;
 
 
         &:hover {
@@ -52,6 +53,12 @@ main {
             background-color: rgba($color: $white-text-color, $alpha: 0.1);
             transition: 0.3s;
         }
+    }
+
+    .group-wrapper {
+        width: 100%;
+        height: 100%;
+        border-right: solid 1px rgba($color: $line-color, $alpha: 0.2);
     }
 
     @for $i from 1 through length($group-colors) {
@@ -62,24 +69,26 @@ main {
     }       
 
     .top-group, .bottom-group {
-        height: 50%;
         width: 100%;
         display: table;
-        border-right: solid 1px rgba($color: $line-color, $alpha: 0.2);
     }
 
     .top-group {
-        padding-top: 6.5vh;
+        height: 12vh;
     }
 
     .bottom-group {
-        padding-top: 17.5vh
+        height: 12vh;
+        bottom: 0;
+        position: absolute;
     }
 
     .group-number {
         text-align: center;
         font-size: 24px;
-        color: rgba($color: $white-text-color, $alpha: 0.25)
+        color: rgba($color: $white-text-color, $alpha: 0.25);
+        display: table-cell;
+        vertical-align: middle;
     }
 
     .first-dose-line, .second-dose-line {
@@ -125,13 +134,13 @@ main {
     .first-dose-line {
         background-color: $first-dose-color;
         width: 40%;
-        margin-top: 15.5vh;
+        margin-top: 12.5vh;
     }
 
     .second-dose-line {
         background-color: $second-dose-color;
         width: 20%;
-        margin-top: 29.5vh;
+        margin-top: 27vh;
     }
 
     .label {

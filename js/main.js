@@ -90,6 +90,10 @@ $(function() {
 
 });
 
+$(window).resize(function(){
+    location.reload();
+});
+
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
