@@ -149,3 +149,34 @@ main {
         position: absolute;
     }
 }
+
+footer {
+    margin-top: 20vh;
+    padding: 0 1vw;
+    font-size: 14px;
+    position: relative;
+
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    img {
+        width: 50px;
+    }
+
+    .left-footer {
+        display: inline-block;
+    }
+
+    .right-footer {
+        float: right;
+        bottom: 0px;
+        right: 1vw;
+        position: absolute;
+    }
+}
