@@ -1,0 +1,49 @@
+.overlay {
+    position: absolute;
+    background-color: rgba($background-color, 0.92);
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    display: none;
+}
+
+.overlay-contents {
+    display: none;
+    z-index: 99999;
+    position: absolute;
+    background-color: white;
+    width: 90%;
+    max-width: 500px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 10vh;
+    padding: 20px;
+    box-sizing: border-box;
+
+    h2 {
+        border-bottom: solid 1px $background-color;
+        font-weight: bold;
+        font-size: 32px;
+        color: $background-color;
+        padding-bottom: 10px;
+    }
+
+    p {
+        color: $background-color;
+        margin-top: 15px;
+        line-height: 1.5;
+    }
+
+    a {
+        color: inherit;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

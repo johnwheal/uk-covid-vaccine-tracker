@@ -111,6 +111,17 @@ $(function() {
     $('main').mouseleave(function() {
         $('.description').fadeOut();
     });
+
+    $('#read-more').click(function(event) {
+        $('.overlay').fadeIn();
+        $('.overlay-contents').fadeIn();
+        event.preventDefault();
+    }); 
+
+    $('.overlay').click(function() {
+        $('.overlay').fadeOut();
+        $('.overlay-contents').fadeOut();
+    });
 });
 
 /**
