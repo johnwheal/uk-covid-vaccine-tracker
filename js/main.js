@@ -101,6 +101,16 @@ $(function() {
         });
     });
 
+    $('.group-wrapper').mouseenter(function() {
+        var id = this.id.replace('group-', '');
+        var descriptionText = priorityGroups[id-1].description;
+        $('.description p').text(descriptionText);
+        $('.description').fadeIn();
+    });
+    
+    $('main').mouseleave(function() {
+        $('.description').fadeOut();
+    });
 });
 
 /**

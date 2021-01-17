@@ -1,5 +1,5 @@
 main {
-    margin-top: 15vh;
+    margin-top: 12.5vh;
     width: 90%;
     height: 50vh;
     margin-left: auto;
@@ -58,12 +58,14 @@ main {
         color: rgba($color: $white-text-color, $alpha: 0.25);
         display: table-cell;
         vertical-align: middle;
+        font-weight: bold;
     }
 
     .first-dose-line, .second-dose-line {
         height: 10vh;
         position: absolute;
         z-index: 1000;
+        cursor: pointer;
 
         .title-wrapper {
             display: table;
@@ -123,5 +125,28 @@ main {
         font-weight: bold;
         color: $white-text-color;
         position: absolute;
+    }
+}
+
+.description {
+    position: relative;
+    bottom: -1vh;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: $background-color;
+    display: block;
+    z-index: 1;
+    display: none;
+
+    p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: auto;
+        position: relative;
     }
 }
