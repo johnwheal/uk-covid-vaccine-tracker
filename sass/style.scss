@@ -94,11 +94,18 @@ main {
     .first-dose-line, .second-dose-line {
         height: 10vh;
         position: absolute;
+        z-index: 1000;
 
         .title-wrapper {
             display: table;
             height: 100%;
             width: 100%;
+        }
+
+        .title-container { 
+            display: none;
+            width: 100%;
+            height: 100%;
         }
 
         .title {
@@ -133,13 +140,13 @@ main {
 
     .first-dose-line {
         background-color: $first-dose-color;
-        width: 40%;
+        width: 0%;
         margin-top: 12.5vh;
     }
 
     .second-dose-line {
         background-color: $second-dose-color;
-        width: 20%;
+        width: 0%;
         margin-top: 27vh;
     }
 

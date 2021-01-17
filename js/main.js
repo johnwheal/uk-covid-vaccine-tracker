@@ -89,8 +89,15 @@ $(function() {
         $('.first-dose-line .num-doses').text(numberWithCommas(dose1));
         $('.second-dose-line .num-doses').text(numberWithCommas(dose2));
 
-        $('.first-dose-line').width(dose1Percentage + '%');
-        $('.second-dose-line').width(dose2Percentage + '%');
+        $('.first-dose-line').animate({
+            width: dose1Percentage + '%'
+        }, 400, function() {
+            $('.second-dose-line').animate({
+                width: dose2Percentage + '%'
+            }, 400, function() {
+                $('.title-container').fadeIn();
+            });
+        });
     });
 
 });
