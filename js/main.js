@@ -1,3 +1,4 @@
+//The JVCI priority groups
 var priorityGroups = [
     {
         name: 'Group 1',
@@ -46,49 +47,49 @@ var priorityGroups = [
     }
 ];
 
+/**
+ * Called when page loads
+ */
 $(function() {
-    for (var i = 1; i < 10; i++) {
-        $('main').append('<div class="group" id="group-' + i + '"><div class="group-wrapper"><div class="top-group"><div class="group-number">' + i + '</div></div><div class="bottom-group"><div class="group-number">' + i + '</div></div></div></div>');
-    }
-
-
+    //Calculate the total population
     var totalPopulation = 0;
     priorityGroups.forEach(function(group) {
         totalPopulation += group.number;
     });
 
+    //Used to track the rolling total as the graph is drawn
     var rollingTotal = 0;
 
-    for (var i = 1; i < 10; i++) {
+    //Loop through all the priority groups
+    for (var i = 1; i < priorityGroups.length + 1; i++) {
+        //Update the rolling total
         rollingTotal += priorityGroups[i-1].number;
-        var percentage = (priorityGroups[i-1].number / totalPopulation) * 100;
-        var group = $('#group-'+i);
-        group.width(percentage + '%');
-        var left = group.position().left + group.width();
-        var label = $('<div class="label">' + numberToMillions(rollingTotal) + '</div>');
-        
-        $('main').append(label);
-        left -= (label.width() / 2);
-        label.css({top: '-25px'}).css({left: left});
 
-        var left = group.position().left + group.width();
-        var label = $('<div class="label">' + numberToMillions(rollingTotal) + '</div>');
+        //Calculate the group percentage
+        var percentage = (priorityGroups[i-1].number / totalPopulation) * 100;
         
-        $('main').append(label);
-        left -= (label.width() / 2);
-        label.css({top: $('main').height() + 14}).css({left: left});
+        //Add the group
+        var group = addGroup(i, percentage);
+        
+        //Add the graph labels
+        addLabel(group, rollingTotal);
     }
 
+    //Get the vaccinated json
     $.get('js/vaccinated.json', '', function(response) {
+        //Get the latest cumulative dses
         var dose1 = response.data[0].cumPeopleVaccinatedFirstDoseByPublishDate;
         var dose2 = response.data[0].cumPeopleVaccinatedSecondDoseByPublishDate;
 
+        //Calculate the dose percentages
         var dose1Percentage = (dose1 / totalPopulation) * 100;
         var dose2Percentage = (dose2 / totalPopulation) * 100;
 
+        //Set the number of doses text
         $('.first-dose-line .num-doses').text(numberWithCommas(dose1));
         $('.second-dose-line .num-doses').text(numberWithCommas(dose2));
 
+        //Draw the doses line
         $('.first-dose-line').animate({
             width: dose1Percentage + '%'
         }, 400, function() {
@@ -102,14 +103,65 @@ $(function() {
 
 });
 
-$(window).resize(function(){
-    location.reload();
+/**
+ * Called when the window is resized
+ */
+$(window).resize(function() {
+    repositionBottomLabels();
 });
 
+/**
+ * Returns a number with thousands commas
+ * @param {*} x 
+ */
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+/**
+ * Converts a number of millions (m)
+ * @param {*} x 
+ */
 function numberToMillions(x) {
     return (Math.round((x / 1000000) * 10) / 10) + 'm';
+}
+
+/**
+ * Add a group to the screen
+ * @param {*} i 
+ * @param {*} percentage 
+ */
+function addGroup(i, percentage) {
+    var group = $('<div class="group-wrapper" id="group-' + i + '"><div class="group-container"><div class="top-group"><div class="group-number">' + i + '</div></div><div class="bottom-group"><div class="group-number">' + i + '</div></div></div></div>');
+    $('main').append(group);
+    group.width(percentage + '%');
+    return group;
+}
+
+/**
+ * Add a label to the screen
+ * @param {*} group 
+ * @param {*} rollingTotal 
+ */
+function addLabel(group, rollingTotal) {
+    var createLabel = function(rollingTotal, position) {
+        return $('<div class="label ' + position + '-label">' + numberToMillions(rollingTotal) + '</div>');
+    };
+
+    var topLabel = createLabel(rollingTotal, 'top');
+    var left = group.position().left + group.width();
+    $('main').append(topLabel);
+    left -= (topLabel.width() / 2);
+    topLabel.css({top: '-25px'}).css({left: left});
+
+    var bottomLabel = createLabel(rollingTotal, 'bottom');
+    $('main').append(bottomLabel);
+    bottomLabel.css({top: $('main').height() + 14}).css({left: left});
+}
+
+/**
+ * Reposition the bottom labels
+ */
+function repositionBottomLabels() {
+    $('.bottom-label').css({top: $('main').height() + 14});
 }
