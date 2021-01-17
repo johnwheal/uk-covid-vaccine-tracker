@@ -47,10 +47,17 @@ var priorityGroups = [
     }
 ];
 
+//Stores whether the portrait view is used
+var usePortrait = false;
+
 /**
  * Called when page loads
  */
 $(function() {
+    if ($(document).width() < 700) {
+        usePortrait = true;
+    }
+
     //Calculate the total population
     var totalPopulation = 0;
     priorityGroups.forEach(function(group) {
@@ -75,6 +82,8 @@ $(function() {
         addLabel(group, rollingTotal);
     }
 
+    addDescription();
+
     //Get the vaccinated json
     $.get('js/vaccinated.json', '', function(response) {
         //Get the latest cumulative dses
@@ -89,16 +98,29 @@ $(function() {
         $('.first-dose-line .num-doses').text(numberWithCommas(dose1));
         $('.second-dose-line .num-doses').text(numberWithCommas(dose2));
 
-        //Draw the doses line
-        $('.first-dose-line').animate({
-            width: dose1Percentage + '%'
-        }, 400, function() {
-            $('.second-dose-line').animate({
-                width: dose2Percentage + '%'
+        if (usePortrait) {
+            //Draw the doses line
+            $('.first-dose-line').animate({
+                height: dose1Percentage + '%'
             }, 400, function() {
-                $('.title-container').fadeIn();
+                $('.second-dose-line').animate({
+                    height: dose2Percentage + '%'
+                }, 400, function() {
+                    $('.title-container').fadeIn();
+                });
             });
-        });
+        } else {
+            //Draw the doses line
+            $('.first-dose-line').animate({
+                width: dose1Percentage + '%'
+            }, 400, function() {
+                $('.second-dose-line').animate({
+                    width: dose2Percentage + '%'
+                }, 400, function() {
+                    $('.title-container').fadeIn();
+                });
+            });
+        }
     });
 
     /**
@@ -174,7 +196,13 @@ function numberToMillions(x) {
 function addGroup(i, percentage) {
     var group = $('<div class="group-wrapper" id="group-' + i + '"><div class="group-container"><div class="top-group"><div class="group-number">' + i + '</div></div><div class="bottom-group"><div class="group-number">' + i + '</div></div></div></div>');
     $('main').append(group);
-    group.width(percentage + '%');
+
+    if (usePortrait) {
+        group.height(percentage + '%');
+    } else {
+        group.width(percentage + '%');
+    }
+
     return group;
 }
 
@@ -188,20 +216,47 @@ function addLabel(group, rollingTotal) {
         return $('<div class="label ' + position + '-label">' + numberToMillions(rollingTotal) + '</div>');
     };
 
-    var topLabel = createLabel(rollingTotal, 'top');
-    var left = group.position().left + group.width();
-    $('main').append(topLabel);
-    left -= (topLabel.width() / 2);
-    topLabel.css({top: '-25px'}).css({left: left});
+    if (usePortrait) {
+        var leftLabel = createLabel(rollingTotal, 'left');
+        var top = group.position().top + group.height();
+        $('main').append(leftLabel);
+        top -= (leftLabel.height() / 2);
+        leftLabel.css({left: '-9vw'}).css({top: top}).css({textAlign: 'right'});
 
-    var bottomLabel = createLabel(rollingTotal, 'bottom');
-    $('main').append(bottomLabel);
-    bottomLabel.css({top: $('main').height() + 14}).css({left: left});
+        var rightLabel = createLabel(rollingTotal, 'right');
+        $('main').append(rightLabel);
+        rightLabel.css({right: '-4.5vh'}).css({top: top}).css({textAlign: 'left'});
+    } else {
+        var topLabel = createLabel(rollingTotal, 'top');
+        var left = group.position().left + group.width();
+        $('main').append(topLabel);
+        left -= (topLabel.width() / 2);
+        topLabel.css({top: '-25px'}).css({left: left});
+
+        var bottomLabel = createLabel(rollingTotal, 'bottom');
+        $('main').append(bottomLabel);
+        bottomLabel.css({top: $('main').height() + 14}).css({left: left});
+    }
 }
 
 /**
  * Reposition the bottom labels
  */
 function repositionBottomLabels() {
-    $('.bottom-label').css({top: $('main').height() + 14});
+    if (!usePortrait) {
+        $('.bottom-label').css({top: $('main').height() + 14});
+    }
+}
+
+/**
+ * Add a blank description
+ */
+function addDescription() {
+    var description = $('<div class="description"><p></p></div>');
+
+    if (usePortrait) {
+        $('main').before(description);
+    } else {
+        $('main').after(description);
+    }
 }

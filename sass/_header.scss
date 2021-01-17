@@ -1,5 +1,6 @@
 header {
     margin-top: 5vh;
+
     h1{
         font-size: 36px;
         font-weight: bold;
@@ -19,5 +20,18 @@ header {
         margin-left: auto;
         margin-right: auto;
         margin-top: 2.5vh;
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: $portrait-max-width) {
+    header {
+        h1 {
+            font-size: 28px;
+            line-height: 1.2;
+        }
+
+        p {
+            line-height: 1.5;
+        }
     }
 }

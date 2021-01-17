@@ -36,3 +36,20 @@ footer {
         height: 50px;
     }
 }
+
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 600px) {
+    footer {
+        height: auto;
+        margin-top: 10vh;
+
+        .left-footer, .right-footer {
+            position: relative;
+            text-align: center;
+            width: 100%;
+        }
+
+        .left-footer {
+            margin-bottom: 1vh;
+        }
+    }
+}
