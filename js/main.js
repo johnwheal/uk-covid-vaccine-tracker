@@ -257,6 +257,6 @@ function addDescription() {
     if (usePortrait) {
         $('main').before(description);
     } else {
-        $('main').after(description);
+        $('main').append(description);
     }
 }
