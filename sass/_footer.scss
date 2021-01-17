@@ -1,9 +1,11 @@
 footer {
-    margin-top: 12vh;
+    height: 20vh;
     padding: 0 1vw;
     margin-bottom: 1vh;
     font-size: 14px;
-    background-color: red;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
 
     a {
         color: inherit;
