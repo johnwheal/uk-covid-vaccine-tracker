@@ -4,7 +4,7 @@ var priorityGroups = [
         name: 'Group 1',
         description: 'Older adults resident in a care home and care home workers',
         number: 1098000
-    }, 
+    },
     {
         name: 'Group 2',
         description: 'All those 80 years and over an health and social care workers',
@@ -44,6 +44,11 @@ var priorityGroups = [
         name: 'Group 9',
         description: 'All those 50 years of age and over',
         number: 4661105
+    },
+    {
+      name: 'Rest of Adult Population',
+      description: 'All those aged between 49 years and 18 years',
+      number: 22450000
     }
 ];
 
@@ -74,10 +79,10 @@ $(function() {
 
         //Calculate the group percentage
         var percentage = (priorityGroups[i-1].number / totalPopulation) * 100;
-        
+
         //Add the group
         var group = addGroup(i, percentage);
-        
+
         //Add the graph labels
         addLabel(group, rollingTotal);
     }
@@ -132,7 +137,7 @@ $(function() {
         $('.description p').text(descriptionText);
         $('.description').fadeIn();
     });
-    
+
     /**
      * Called when leave priority group
      */
@@ -147,7 +152,7 @@ $(function() {
         $('.overlay').fadeIn();
         $('.overlay-contents').fadeIn();
         event.preventDefault();
-    }); 
+    });
 
     /**
      * Called to dismiss read more overlay
@@ -174,7 +179,7 @@ $(window).bind('orientationchange', function(event) {
 
 /**
  * Returns a number with thousands commas
- * @param {*} x 
+ * @param {*} x
  */
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -182,7 +187,7 @@ function numberWithCommas(x) {
 
 /**
  * Converts a number of millions (m)
- * @param {*} x 
+ * @param {*} x
  */
 function numberToMillions(x) {
     return (Math.round((x / 1000000) * 10) / 10) + 'm';
@@ -190,8 +195,8 @@ function numberToMillions(x) {
 
 /**
  * Add a group to the screen
- * @param {*} i 
- * @param {*} percentage 
+ * @param {*} i
+ * @param {*} percentage
  */
 function addGroup(i, percentage) {
     var group = $('<div class="group-wrapper" id="group-' + i + '"><div class="group-container"><div class="top-group"><div class="group-number">' + i + '</div></div><div class="bottom-group"><div class="group-number">' + i + '</div></div></div></div>');
@@ -208,8 +213,8 @@ function addGroup(i, percentage) {
 
 /**
  * Add a label to the screen
- * @param {*} group 
- * @param {*} rollingTotal 
+ * @param {*} group
+ * @param {*} rollingTotal
  */
 function addLabel(group, rollingTotal) {
     var createLabel = function(rollingTotal, position) {
